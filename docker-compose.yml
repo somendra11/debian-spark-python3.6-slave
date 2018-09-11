@@ -1,0 +1,44 @@
+worker1:
+  image: somendra11/debian-spark-python3.6-slave
+  command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://"<MASTER_MACHINE_IP_HERE>:7077
+  hostname: worker1
+  environment:
+    SPARK_CONF_DIR: /conf
+    SPARK_WORKER_CORES: 1
+    SPARK_WORKER_MEMORY: 1g
+    SPARK_WORKER_PORT: 8881
+    SPARK_WORKER_WEBUI_PORT: 8081
+    SPARK_PUBLIC_DNS: 0.0.0.0
+  ports:
+    - 9012:9012
+    - 9013:9013
+    - 9014:9014
+    - 9015:9015
+    - 8881:8881
+    - 8081:8081
+    - 8122:8022
+  volumes:
+    - ./conf/worker1:/conf
+    - ./data:/usr/spark-2.3.1/tmp
+worker2:
+  image: somendra11/debian-spark-python3.6-slave
+  command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://"<MASTER_MACHINE_IP_HERE>:7077
+  hostname: worker2
+  environment:
+    SPARK_CONF_DIR: /conf
+    SPARK_WORKER_CORES: 1
+    SPARK_WORKER_MEMORY: 1g
+    SPARK_WORKER_PORT: 8882
+    SPARK_WORKER_WEBUI_PORT: 8082
+    SPARK_PUBLIC_DNS: 0.0.0.0
+  ports:
+    - 9012:9022
+    - 9013:9023
+    - 9014:9024
+    - 9015:9025
+    - 8882:8882
+    - 8082:8082
+    - 8222:8022
+  volumes:
+    - ./conf/worker2:/conf
+    - ./data:/usr/spark-2.3.1/tmp
